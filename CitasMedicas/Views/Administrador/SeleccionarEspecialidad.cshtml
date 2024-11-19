@@ -1,0 +1,26 @@
+﻿@model IEnumerable<CitasMedicas.Models.Especialidade>
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <title>Seleccionar Especialidad</title>
+    <link rel="stylesheet" href="~/css/styles.css" />
+</head>
+<body>
+    <div class="container">
+        <h1>Seleccionar Especialidad</h1>
+        <form asp-action="AsignarEspecialidad" method="post">
+            <input type="hidden" name="idMedico" value="@ViewBag.IdMedico" />
+            <label for="especialidad">Elige una especialidad:</label>
+            <select name="idEspecialidad" required>
+                @foreach (var especialidad in Model)
+                {
+                    <option value="@especialidad.IdEspecialidad">@especialidad.Nombre</option>
+                }
+            </select>
+            <button type="submit">Asignar Especialidad</button>
+        </form>
+    </div>
+</body>
+</html>

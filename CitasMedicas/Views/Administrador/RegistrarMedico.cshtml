@@ -1,0 +1,114 @@
+﻿@model CitasMedicas.Models.Usuario
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <title>Registrar Médico</title>
+    <link rel="stylesheet" href="~/css/styles.css" />
+    <style>
+        /* Estilos personalizados usando la paleta de colores */
+
+                body {
+                    background-color: #f0f8ff;
+                    font-family: Arial, sans-serif;
+                }
+
+                h1 {
+                    text-align: center;
+                    color: #00796b;
+                    font-size: 2rem;
+                    margin-top: 20px;
+                }
+
+                .container {
+                    max-width: 400px;
+                    margin: 0 auto;
+                    padding: 20px;
+                    background-color: #ffffff;
+                    border: 1px solid #d0e2ff;
+                    border-radius: 10px;
+                    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                }
+
+                label {
+                    color: #004d40;
+                    font-weight: bold;
+                    display: block;
+                    margin-bottom: 5px;
+                }
+
+                input[type="text"],
+                input[type="email"],
+                input[type="password"],
+                input[type="date"],
+                select {
+                    width: 100%;
+                    border: 1px solid #b0bec5;
+                    border-radius: 5px;
+                    padding: 10px;
+                    margin-bottom: 10px;
+                }
+
+                input[type="text"]:focus,
+                input[type="email"]:focus,
+                input[type="password"]:focus,
+                input[type="date"]:focus,
+                select:focus {
+                    border-color: #00796b;
+                    box-shadow: 0 0 8px rgba(0, 121, 107, 0.2);
+                }
+
+                button {
+                    background-color: #00796b;
+                    border-color: #004d40;
+                    color: #ffffff;
+                    width: 100%;
+                    padding: 10px;
+                    font-size: 1rem;
+                    border-radius: 5px;
+                    cursor: pointer;
+                }
+
+                button:hover {
+                    background-color: #004d40;
+                    border-color: #00251a;
+                }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Registrar Médico</h1>
+        <form asp-action="RegistrarMedico" method="post">
+            <label for="Nombre">Nombre:</label>
+            <input type="text" id="Nombre" name="Nombre" required />
+
+            <label for="Apellido">Apellido:</label>
+            <input type="text" id="Apellido" name="Apellido" required />
+
+            <label for="FechaNacimiento">Fecha de Nacimiento:</label>
+            <input type="date" id="FechaNacimiento" name="FechaNacimiento" required />
+
+            <label for="Genero">Género:</label>
+            <select id="Genero" name="Genero" required>
+                <option value="Masculino">Masculino</option>
+                <option value="Femenino">Femenino</option>
+            </select>
+
+            <label for="Telefono">Teléfono:</label>
+            <input type="text" id="Telefono" name="Telefono" required />
+
+            <label for="Direccion">Dirección:</label>
+            <input type="text" id="Direccion" name="Direccion" required />
+
+            <label for="Email">Email:</label>
+            <input type="email" id="Email" name="Email" required />
+
+            <label for="Contraseña">Contraseña:</label>
+            <input type="password" id="ContraseñaHash" name="ContraseñaHash" required />
+
+            <button type="submit">Registrar</button>
+        </form>
+    </div>
+</body>
+</html>

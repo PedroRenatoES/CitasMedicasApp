@@ -1,0 +1,165 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - CitasMedicas</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/CitasMedicas.styles.css" asp-append-version="true" />
+    <style>
+        body {
+            background-color: #f0f8ff; /* Fondo claro, relacionado con el área médica */
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border: 1px solid #d0e2ff; /* Azul suave para el borde */
+        }
+
+        h1 {
+            color: #00796b; /* Verde oscuro */
+            text-align: center;
+        }
+
+        .btn {
+            display: inline-block;
+            margin-right: 10px;
+            padding: 10px 15px;
+            background-color: #00796b; /* Color de fondo */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 10px;
+            border: 1px solid #d0e2ff; /* Azul suave */
+            text-align: left;
+        }
+
+        th {
+            background-color: #e0f2f1; /* Fondo verde claro para encabezados */
+            color: #00796b; /* Verde oscuro */
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9; /* Fondo gris claro para filas pares */
+        }
+
+        tr:hover {
+            background-color: #b2dfdb; /* Fondo más oscuro al pasar el cursor */
+        }
+
+        /* Estilos adicionales para el sidebar */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 250px;
+            height: 100%;
+            background-color: #ffffff;
+            padding-top: 20px;
+            box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.1);
+            border-right: 1px solid #d0e2ff; /* Bordes suaves */
+        }
+
+            .sidebar h4 {
+                color: #00796b; /* Verde oscuro */
+                text-align: center;
+            }
+
+            .sidebar a {
+                padding: 10px 15px;
+                text-decoration: none;
+                font-size: 18px;
+                color: #333;
+                display: block;
+            }
+
+                .sidebar a:hover {
+                    background-color: #b2dfdb; /* Fondo más oscuro al pasar el cursor */
+                    color: #00796b; /* Verde oscuro */
+                }
+
+        .content-wrapper {
+            margin-left: 260px; /* Espacio suficiente para el sidebar */
+            padding: 20px;
+        }
+
+
+        /* Ocultar el sidebar en la página de login */
+        body.login-page .sidebar {
+            display: none;
+        }
+
+        /* Asegura que el contenido se ajuste al área si el sidebar está oculto */
+        body.login-page .content-wrapper {
+            margin-left: 0;
+        }
+    </style>
+</head>
+<body class="@ViewData["BodyClass"]">
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+                <a class="navbar-brand" asp-area="" asp-controller="Usuarios" asp-action="Main">CitasMedicas</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Usuarios" asp-action="Main">Home</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-md-3 col-lg-2 sidebar">
+                <h4>Menu</h4>
+                <a href="@Url.Action("VerCitas", "Usuarios")">Ver Citas Programadas</a>
+                <a href="@Url.Action("AgendarNuevaCita", "Usuarios")">Agendar Nueva Cita</a>
+                <a href="@Url.Action("VerHistorialMedico", "Usuarios")">Ver Historial Médico</a>
+                <a href="@Url.Action("VerRecetasMedicas", "Usuarios")">Ver Recetas Médicas</a>
+                <a href="@Url.Action("GestionarAlergias", "Usuarios")">Gestionar Alergias</a>
+                <a href="@Url.Action("Logout", "Usuarios")">Cerrar sesión</a>
+            </div>
+
+            <!-- Main Content -->
+            <div class="col-md-9 col-lg-10 content-wrapper">
+                <main role="main" class="pb-3">
+                    @RenderBody()
+                </main>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

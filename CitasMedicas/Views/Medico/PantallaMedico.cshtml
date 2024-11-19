@@ -1,0 +1,93 @@
+﻿@model CitasMedicas.Models.Usuario
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <title>Pantalla Principal Médico</title>
+    <link rel="stylesheet" href="~/css/styles.css" />
+    <style>
+        body {
+            background-color: #f0f8ff; /* Fondo claro, relacionado con el área médica */
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border: 1px solid #d0e2ff; /* Azul suave para el borde */
+        }
+
+        h1 {
+            color: #00796b; /* Verde oscuro */
+            text-align: center;
+        }
+
+        h2 {
+            color: #004d40; /* Verde más oscuro */
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        h3 {
+            color: #004d40; /* Verde oscuro */
+            margin-bottom: 20px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 15px;
+        }
+
+        a {
+            color: #00796b; /* Verde para los enlaces */
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+            a:hover {
+                text-decoration: underline;
+                color: #004d40; /* Verde más oscuro al pasar el cursor */
+            }
+
+        /* Botones y enlaces de la lista */
+        li a {
+            display: block;
+            padding: 10px;
+            background-color: #e0f2f1; /* Fondo verde claro para resaltar las opciones */
+            border-radius: 5px;
+            border: 1px solid #00796b;
+            transition: background-color 0.3s ease;
+        }
+
+            li a:hover {
+                background-color: #b2dfdb; /* Fondo más oscuro al pasar el cursor */
+            }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Bienvenido, @Model.Nombre!</h1>
+        <h2>Rol: @Model.Rol</h2>
+
+        <h3>Opciones:</h3>
+        <ul>
+            <li><a href="@Url.Action("VerCitas", "Medico")">Ver citas</a></li>
+            <li><a href="@Url.Action("PruebasDiagnosticas", "Medico")">Pedir prueba diagnóstica</a></li>
+            <li><a href="@Url.Action("HistorialMedico", "Medico")">Historial de pacientes</a></li>
+            <li><a href="@Url.Action("Logout", "Usuarios")">Cerrar sesión</a></li>
+        </ul>
+    </div>
+</body>
+</html>

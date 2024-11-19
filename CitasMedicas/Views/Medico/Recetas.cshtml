@@ -1,0 +1,117 @@
+﻿@model CitasMedicas.Models.HistorialMedico
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <title>Recetas de Historial Médico</title>
+    <style>
+        body {
+            background-color: #f0f8ff; /* Fondo relacionado con el área médica */
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            color: #00796b; /* Verde oscuro */
+            margin-top: 30px;
+        }
+
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            background-color: #ffffff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border: 1px solid #d0e2ff; /* Azul claro */
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: center;
+            border: 1px solid #d0e2ff; /* Bordes de las celdas en azul suave */
+        }
+
+        th {
+            background-color: #004d40; /* Verde oscuro para el encabezado */
+            color: #ffffff;
+        }
+
+        td {
+            background-color: #e0f2f1; /* Fondo verde claro para las celdas */
+        }
+
+        tbody tr:nth-child(even) td {
+            background-color: #b2dfdb; /* Fondo ligeramente más oscuro para las filas pares */
+        }
+
+        tbody tr:hover td {
+            background-color: #b2dfdb; /* Cambio de color al pasar el cursor sobre una fila */
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 15px;
+            margin: 10px;
+            color: white;
+            background-color: #00796b; /* Verde oscuro */
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+
+            .btn:hover {
+                background-color: #004d40; /* Verde más oscuro al pasar el cursor */
+            }
+
+        .container {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div style="text-align: left;">
+            <!-- Alineación a la izquierda -->
+            <a href="@Url.Action("HistorialMedico", "Medico")" class="btn">Volver</a>
+        </div>
+        <h1>Recetas para el Historial Médico</h1>
+        <h2>@($"Historial ID: {Model.IdHistorial}")</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Medicamento</th>
+                    <th>Dosis</th>
+                    <th>Duración</th>
+                    <th>Fecha de Emisión</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var receta in Model.Receta)
+                {
+                    <tr>
+                        <td>
+                            @if (receta.IdMedicamentoNavigation != null)
+                            {
+                                @receta.IdMedicamentoNavigation.Nombre
+                            }
+                            else
+                            {
+                                @("Información no disponible")
+                            }
+                        </td>
+                        <td>@receta.Dosis</td>
+                        <td>@receta.Duracion</td>
+                        <td>@receta.FechaEmision?.ToString("d")</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <a asp-action="AgregarReceta" asp-route-historialId="@Model.IdHistorial" class="btn">Agregar Receta</a>
+    </div>
+</body>
+</html>

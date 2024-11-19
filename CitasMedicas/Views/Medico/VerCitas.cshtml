@@ -1,0 +1,117 @@
+﻿@model IEnumerable<CitasMedicas.Models.Cita>
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <title>Ver Citas</title>
+    <link rel="stylesheet" href="~/css/styles.css" />
+    <style>
+        body {
+            background-color: #f0f8ff; /* Fondo claro, relacionado con el área médica */
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border: 1px solid #d0e2ff; /* Azul suave para el borde */
+        }
+
+        h1 {
+            color: #00796b; /* Verde oscuro */
+            text-align: center;
+        }
+
+        .btn {
+            display: inline-block; /* Cambiar a inline-block para estar en línea con el texto */
+            margin-right: 10px; /* Espacio entre el botón y el texto */
+            padding: 10px 15px; /* Padding del botón */
+            background-color: #00796b; /* Color de fondo */
+            color: white; /* Color de texto */
+            border: none; /* Sin borde */
+            border-radius: 5px; /* Esquinas redondeadas */
+            text-decoration: none; /* Sin subrayado */
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 10px;
+            border: 1px solid #d0e2ff; /* Azul suave */
+            text-align: left;
+        }
+
+        th {
+            background-color: #e0f2f1; /* Fondo verde claro para encabezados */
+            color: #00796b; /* Verde oscuro */
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9; /* Fondo gris claro para filas pares */
+        }
+
+        tr:hover {
+            background-color: #b2dfdb; /* Fondo más oscuro al pasar el cursor */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div>
+            <a href="@Url.Action("PantallaMedico", "Medico")" class="btn">Volver</a>
+        </div>
+        <h1>Lista de Citas</h1>
+
+        @if (!Model.Any())
+        {
+            <p>No hay citas programadas.</p>
+        }
+        else
+        {
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Paciente</th>
+                        <th>Fecha/Hora</th>
+                        <th>Motivo</th>
+                        <th>Estado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var cita in Model)
+                    {
+                        <tr>
+                            <td>@cita.IdCita</td>
+                            <td>
+                                @if (cita.IdPacienteNavigation != null && cita.IdPacienteNavigation.IdUsuarioNavigation != null)
+                                {
+                                    @cita.IdPacienteNavigation.IdUsuarioNavigation.Nombre
+                                }
+                                else
+                                {
+                                    <span>No disponible</span> <!-- Mensaje alternativo si no se encuentra el nombre -->
+                                }
+                            </td>
+                            <td>@cita.FechaHora</td>
+                            <td>@cita.Motivo</td>
+                            <td>@cita.Estado</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    </div>
+</body>
+</html>

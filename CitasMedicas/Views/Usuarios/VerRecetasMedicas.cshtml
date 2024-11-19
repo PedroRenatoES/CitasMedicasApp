@@ -1,0 +1,95 @@
+﻿@model IEnumerable<CitasMedicas.Models.Receta>
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <title>Recetas Médicas</title>
+    <link rel="stylesheet" href="~/css/styles.css" />
+    <style>
+        body {
+            background-color: #f0f8ff; /* Fondo azul claro */
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        h2 {
+            text-align: center;
+            color: #00796b; /* Verde oscuro relacionado con el área médica */
+            margin-top: 30px;
+        }
+
+        table {
+            width: 90%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            background-color: #ffffff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        th, td {
+            padding: 12px;
+            border: 1px solid #b2dfdb; /* Bordes verdes claros */
+            text-align: left;
+        }
+
+        th {
+            background-color: #004d40; /* Verde oscuro */
+            color: white;
+        }
+
+        td {
+            background-color: #e0f2f1; /* Verde claro */
+        }
+
+        tr:nth-child(even) td {
+            background-color: #f0f8ff; /* Alternar colores de fondo */
+        }
+
+        .btn {
+            display: inline-block; /* Cambiar a inline-block para estar en línea con el texto */
+            margin-right: 10px; /* Espacio entre el botón y el texto */
+            padding: 10px 15px; /* Padding del botón */
+            background-color: #00796b; /* Color de fondo */
+            color: white; /* Color de texto */
+            border: none; /* Sin borde */
+            border-radius: 5px; /* Esquinas redondeadas */
+            text-decoration: none; /* Sin subrayado */
+        }
+
+        td {
+            white-space: nowrap;
+        }
+    </style>
+</head>
+<body>
+    <div style="text-align: left;">
+        <!-- Alineación a la izquierda -->
+        <a href="@Url.Action("Main", "Usuarios")" class="btn">Volver</a>
+    </div>
+    <h2>Recetas Médicas</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Medicamento</th>
+                <th>Dosis</th>
+                <th>Duración</th>
+                <th>Fecha de Emisión</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var receta in Model)
+            {
+                <tr>
+                    <td>@receta.IdMedicamentoNavigation?.Nombre</td>
+                    <td>@receta.Dosis</td>
+                    <td>@receta.Duracion</td>
+                    <td>@receta.FechaEmision?.ToString("d")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</body>
+</html>

@@ -1,0 +1,83 @@
+﻿@model CitasMedicas.Models.Alergia
+
+@{
+    ViewData["Title"] = "Registrar Alergia";
+}
+
+<div style="text-align: left;">
+    <!-- Alineación a la izquierda -->
+    <a href="@Url.Action("GestionarAlergias", "Usuarios")" class="btn">Volver</a>
+</div>
+
+<h2 class="form-title">Registrar Alergia</h2>
+
+<form asp-action="AgregarAlergia" method="post" class="alergia-form">
+    <div class="form-group">
+        <label for="Descripcion" class="form-label">Descripción</label>
+        <input type="text" name="Descripcion" class="form-control" placeholder="Descripción de la alergia" required />
+        <span asp-validation-for="Descripcion" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Agregar Alergia</button>
+    </div>
+</form>
+
+<style>
+    body {
+        background-color: #f0f8ff;
+        font-family: Arial, sans-serif;
+    }
+
+    .form-title {
+        text-align: center;
+        color: #00796b;
+        font-size: 2rem;
+        margin-top: 20px;
+    }
+
+    .alergia-form {
+        max-width: 400px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #ffffff;
+        border: 1px solid #d0e2ff;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-label {
+        color: #004d40;
+        font-weight: bold;
+    }
+
+    .form-control {
+        border: 1px solid #b0bec5;
+        border-radius: 5px;
+        padding: 10px;
+        margin-bottom: 10px;
+    }
+
+    .btn {
+        display: inline-block; /* Cambiar a inline-block para estar en línea con el texto */
+        margin-right: 10px; /* Espacio entre el botón y el texto */
+        padding: 10px 15px; /* Padding del botón */
+        background-color: #00796b; /* Color de fondo */
+        color: white; /* Color de texto */
+        border: none; /* Sin borde */
+        border-radius: 5px; /* Esquinas redondeadas */
+        text-decoration: none; /* Sin subrayado */
+    }
+
+    .btn-primary {
+        background-color: #00796b;
+        border-color: #004d40;
+        color: #ffffff;
+        width: 100%;
+        padding: 10px;
+        border-radius: 5px;
+    }
+
+        .btn-primary:hover {
+            background-color: #004d40;
+        }
+</style>

@@ -1,0 +1,117 @@
+﻿@model CitasMedicas.Models.PruebasDiagnostica
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <title>Nueva Prueba Médica</title>
+    <link rel="stylesheet" href="~/css/styles.css" />
+    <style>
+        body {
+            background-color: #e0f7fa; /* Color de fondo suave */
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #ffffff; /* Fondo blanco para el contenedor */
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #00796b; /* Color de encabezado */
+            text-align: center;
+        }
+
+        label {
+            font-weight: bold;
+            color: #004d40; /* Color de las etiquetas */
+        }
+
+        .btn {
+            display: inline-block; /* Cambiar a inline-block para estar en línea con el texto */
+            margin-right: 10px; /* Espacio entre el botón y el texto */
+            padding: 10px 15px; /* Padding del botón */
+            background-color: #00796b; /* Color de fondo */
+            color: white; /* Color de texto */
+            border: none; /* Sin borde */
+            border-radius: 5px; /* Esquinas redondeadas */
+            text-decoration: none; /* Sin subrayado */
+        }
+
+        select, input[type="text"], input[type="date"], textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            margin-bottom: 20px;
+            border: 1px solid #00796b; /* Color del borde */
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #00796b; /* Color del botón */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+            button:hover {
+                background-color: #004d40; /* Color del botón al pasar el ratón */
+            }
+
+        /* Estilo para el textarea */
+        textarea {
+            height: 100px; /* Altura para el área de texto */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div>
+            <a href="@Url.Action("PruebasDiagnosticas", "Medico")" class="btn">Volver</a>
+        </div>
+        <h1>Nueva Prueba Médica</h1>
+
+        <!-- El formulario ahora soporta subida de archivos -->
+        <form asp-action="GuardarPruebaDiagnostica" method="post" enctype="multipart/form-data">
+            <div>
+                <label for="IdPaciente">Paciente:</label>
+                <select id="IdPaciente" name="IdPaciente" required>
+                    @foreach (var paciente in ViewBag.Pacientes)
+                    {
+                        var nombreCompleto = paciente.IdUsuarioNavigation != null
+                        ? $"{paciente.IdUsuarioNavigation.Nombre} {paciente.IdUsuarioNavigation.Apellido}"
+                        : "Paciente desconocido"; // Manejar el caso nulo
+
+                        <option value="@paciente.IdPaciente">@nombreCompleto</option>
+                    }
+                </select>
+            </div>
+            <div>
+                <label for="TipoPrueba">Tipo de Prueba:</label>
+                <input type="text" id="TipoPrueba" name="TipoPrueba" required />
+            </div>
+            <div>
+                <label for="Fecha">Fecha:</label>
+                <input type="date" id="Fecha" name="Fecha" required />
+            </div>
+            <div>
+                <label for="ImagenResultados">Cargar Imagen de Resultados:</label>
+                <input type="file" id="ImagenResultados" name="ImagenResultados" accept="image/*" />
+            </div>
+            <button type="submit">Guardar Prueba Médica</button>
+        </form>
+    </div>
+</body>
+</html>

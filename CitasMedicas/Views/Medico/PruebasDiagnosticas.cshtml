@@ -1,0 +1,122 @@
+﻿@model IEnumerable<CitasMedicas.Models.PruebasDiagnostica>
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <title>Pruebas Diagnósticas</title>
+    <link rel="stylesheet" href="~/css/styles.css" />
+    <style>
+        body {
+            background-color: #f0f8ff;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #00796b;
+            text-align: center;
+        }
+
+        .btn {
+            display: inline-block; /* Cambiar a inline-block para estar en línea con el texto */
+            margin-right: 10px; /* Espacio entre el botón y el texto */
+            padding: 10px 15px; /* Padding del botón */
+            background-color: #00796b; /* Color de fondo */
+            color: white; /* Color de texto */
+            border: none; /* Sin borde */
+            border-radius: 5px; /* Esquinas redondeadas */
+            text-decoration: none; /* Sin subrayado */
+        }
+
+            .btn:hover {
+                background-color: #004d40; /* Color al pasar el mouse */
+            }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 10px;
+            border: 1px solid #d0e2ff;
+            text-align: left;
+        }
+
+        th {
+            background-color: #e0f2f1;
+            color: #00796b;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tr:hover {
+            background-color: #b2dfdb;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div>
+            <a href="@Url.Action("PantallaMedico", "Medico")" class="btn">Volver</a>
+        </div>
+        <h1>Pruebas Diagnósticas</h1>
+
+        @if (!Model.Any())
+        {
+            <p>No hay pruebas diagnósticas registradas.</p>
+        }
+        else
+        {
+            <table>
+                <thead>
+                    <tr>
+                        <th>Paciente</th>
+                        <th>Tipo de Prueba</th>
+                        <th>Fecha</th>
+                        <th>Resultados</th>
+                        <th>Imagen</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var prueba in Model)
+                    {
+                        <tr>
+                            <td>@($"{@prueba.IdPacienteNavigation.IdUsuarioNavigation.Nombre} {@prueba.IdPacienteNavigation.IdUsuarioNavigation.Apellido}")</td>
+                            <td>@prueba.TipoPrueba</td>
+                            <td>@prueba.Fecha?.ToString("dd/MM/yyyy")</td>
+                            <td>@(prueba.Resultados != null ? "Resultados disponibles" : "No hay resultados")</td>
+                            <td>
+                                @if (prueba.Resultados != null)
+                                {
+                                    <img src="data:image/png;base64,@Convert.ToBase64String(prueba.Resultados)" alt="Resultados de Prueba" style="max-width: 200px;" />
+                                }
+                                else
+                                {
+                                    <p>No hay imagen disponible.</p>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+
+        <a href="@Url.Action("CrearPruebaDiagnostica", "Medico")" class="btn">Nueva Prueba Médica</a>
+    </div>
+</body>
+</html>

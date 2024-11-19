@@ -1,0 +1,170 @@
+﻿@model CitasMedicas.Models.Cita
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <title>Agendar Nueva Cita</title>
+    <link rel="stylesheet" href="~/css/styles.css" />
+    <style>
+        body {
+            background-color: #f0f8ff; /* Fondo relacionado con el área médica */
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        h2 {
+            text-align: center;
+            color: #00796b; /* Verde oscuro */
+            margin-top: 30px;
+        }
+
+        form {
+            width: 50%;
+            margin: 20px auto;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn {
+            display: inline-block; /* Cambiar a inline-block para estar en línea con el texto */
+            margin-right: 10px; /* Espacio entre el botón y el texto */
+            padding: 10px 15px; /* Padding del botón */
+            background-color: #00796b; /* Color de fondo */
+            color: white; /* Color de texto */
+            border: none; /* Sin borde */
+            border-radius: 5px; /* Esquinas redondeadas */
+            text-decoration: none; /* Sin subrayado */
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            color: #004d40; /* Verde oscuro */
+            margin-bottom: 10px;
+        }
+
+        select, input[type="datetime-local"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #b2dfdb; /* Verde claro */
+            border-radius: 4px;
+            background-color: #e0f2f1; /* Fondo verde claro */
+        }
+
+            select:focus, input[type="datetime-local"]:focus {
+                outline: none;
+                border-color: #00796b; /* Borde verde oscuro */
+            }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #004d40; /* Botón verde oscuro */
+            color: #ffffff;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+            button:hover {
+                background-color: #00796b; /* Cambio de color en hover */
+            }
+
+        #fechaHoraDiv, #medicoDiv {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div style="text-align: left;">
+        <!-- Alineación a la izquierda -->
+        <a href="@Url.Action("Main", "Usuarios")" class="btn">Volver</a>
+    </div>
+
+    <h2>Agendar Nueva Cita</h2>
+
+    <form id="citaForm" method="post" action="@Url.Action("AgendarNuevaCita", "Usuarios")">
+        <div>
+            <label for="especialidadId">Especialidad:</label>
+            <select id="especialidadId" name="IdEspecialidad" required>
+                <option value="">Seleccione una especialidad</option>
+                @foreach (var especialidad in ViewBag.Especialidades)
+                {
+                    <option value="@especialidad.IdEspecialidad">@especialidad.Nombre</option>
+                }
+            </select>
+        </div>
+
+        <div id="fechaHoraDiv">
+            <label for="fechaHora">Fecha y Hora:</label>
+            <input type="datetime-local" id="fechaHora" name="FechaHora" required min="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")" />
+        </div>
+
+        <div id="medicoDiv">
+            <label for="medicoId">Médico:</label>
+            <select id="medicoId" name="IdMedico" required>
+                <option value="">Seleccione un médico</option>
+            </select>
+        </div>
+
+        <div>
+            <label for="motivo">Motivo de la Visita:</label>
+            <input type="text" id="motivo" name="Motivo" required />
+        </div>
+
+        <input type="hidden" id="idPaciente" name="IdPaciente" />
+
+        <button type="submit" id="submitButton">Agendar Cita</button>
+    </form>
+
+    @section Scripts {
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                $('#especialidadId').change(function () {
+                    const especialidadId = $(this).val();
+                    $('#fechaHoraDiv').show();
+
+                    // Resetear el médico
+                    $('#medicoId').empty().append('<option value="">Seleccione un médico</option>');
+                    $('#medicoDiv').hide();
+                    $('#submitButton').hide();
+                });
+
+                $('#fechaHora').change(function () {
+                    const especialidadId = $('#especialidadId').val();
+                    const fechaHora = $(this).val();
+
+                    if (especialidadId && fechaHora) {
+                        $.get('@Url.Action("ObtenerMedicos", "Usuarios")', { especialidadId: especialidadId, fechaHora: fechaHora }, function (medicos) {
+                            $('#medicoId').empty().append('<option value="">Seleccione un médico</option>');
+
+                            $.each(medicos, function (index, medico) {
+                                $('#medicoId').append('<option value="' + medico.idMedico + '">' + medico.nombre + ' ' + medico.apellido + '</option>');
+                            });
+
+                            $('#medicoDiv').show();
+                            $('#submitButton').hide();
+                        });
+                    }
+                });
+
+                $('#medicoId').change(function () {
+                    if ($(this).val()) {
+                        $('#submitButton').show();
+                    } else {
+                        $('#submitButton').hide();
+                    }
+                });
+            });
+        </script>
+    }
+</body>
+</html>

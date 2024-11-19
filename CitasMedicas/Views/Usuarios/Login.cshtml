@@ -1,0 +1,99 @@
+﻿@model CitasMedicas.Models.Usuario
+
+@{
+    ViewData["Title"] = "Login";
+    ViewData["BodyClass"] = "login-page";
+}
+
+<h2 class="login-title">Login</h2>
+
+
+<form asp-action="Login" method="post" class="login-form">
+    <div class="form-group">
+        <label asp-for="Email" class="form-label"></label>
+        <input asp-for="Email" class="form-control" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label for="password" class="form-label">Contraseña</label>
+        <input type="password" name="password" class="form-control" />
+        <span asp-validation-for="ContraseñaHash" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary login-btn">Iniciar Sesión</button>
+    </div>
+</form>
+
+<div class="register-link">
+    <p>¿No tienes una cuenta? <a asp-controller="Usuarios" asp-action="Register">Regístrate aquí</a>.</p>
+</div>
+
+<style>
+    body {
+        background-color: #f0f8ff; /* Color de fondo claro, relacionado con el área médica */
+        font-family: Arial, sans-serif;
+    }
+
+    .login-title {
+        text-align: center;
+        color: #00796b; /* Verde relacionado con el área de salud */
+        font-size: 2rem;
+        margin-top: 20px;
+    }
+
+    .login-form {
+        max-width: 400px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #ffffff;
+        border: 1px solid #d0e2ff; /* Azul suave para el borde */
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-label {
+        color: #004d40; /* Verde oscuro para los textos */
+        font-weight: bold;
+    }
+
+    .form-control {
+        border: 1px solid #b0bec5; /* Azul grisáceo */
+        border-radius: 5px;
+        padding: 10px;
+        margin-bottom: 10px;
+    }
+
+        .form-control:focus {
+            border-color: #00796b; /* Verde relacionado con el área médica */
+            box-shadow: 0 0 8px rgba(0, 121, 107, 0.2);
+        }
+
+    .login-btn {
+        background-color: #00796b; /* Verde oscuro para el botón */
+        border-color: #004d40;
+        color: #ffffff;
+        width: 100%;
+        padding: 10px;
+        font-size: 1rem;
+        border-radius: 5px;
+    }
+
+        .login-btn:hover {
+            background-color: #004d40; /* Verde más oscuro al pasar el cursor */
+            border-color: #00251a;
+        }
+
+    .register-link {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+        .register-link a {
+            color: #00796b; /* Verde para el enlace */
+            text-decoration: none;
+        }
+
+            .register-link a:hover {
+                text-decoration: underline;
+            }
+</style>

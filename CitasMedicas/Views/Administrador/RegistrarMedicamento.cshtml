@@ -1,0 +1,105 @@
+﻿@model CitasMedicas.Models.Medicamento
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <title>Registrar Medicamento</title>
+    <link rel="stylesheet" href="~/css/styles.css" />
+    <style>
+        body {
+            background-color: #f0f8ff;
+            font-family: Arial, sans-serif;
+        }
+
+        .register-title {
+            text-align: center;
+            color: #00796b;
+            font-size: 2rem;
+            margin-top: 20px;
+        }
+
+        .register-form {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border: 1px solid #d0e2ff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-label {
+            color: #004d40;
+            font-weight: bold;
+        }
+
+        .form-control {
+            border: 1px solid #b0bec5;
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 10px;
+            width: 100%; /* Asegura que los inputs ocupen todo el ancho */
+        }
+
+        .form-control:focus {
+            border-color: #00796b;
+            box-shadow: 0 0 8px rgba(0, 121, 107, 0.2);
+        }
+
+        .register-btn {
+            background-color: #00796b;
+            border-color: #004d40;
+            color: #ffffff;
+            width: 100%;
+            padding: 10px;
+            font-size: 1rem;
+            border-radius: 5px;
+            cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+        }
+
+        .register-btn:hover {
+            background-color: #004d40;
+            border-color: #00251a;
+        }
+
+        .login-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .login-link a {
+            color: #00796b;
+            text-decoration: none;
+        }
+
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="register-title">Registrar Medicamento</h1>
+        <form asp-action="RegistrarMedicamento" method="post" class="register-form">
+            <label class="form-label" for="Nombre">Nombre:</label>
+            <input type="text" id="Nombre" name="Nombre" class="form-control" required />
+
+            <label class="form-label" for="Descripcion">Descripción:</label>
+            <textarea id="Descripcion" name="Descripcion" class="form-control" required></textarea>
+
+            <label class="form-label" for="Dosis">Dosis:</label>
+            <input type="text" id="Dosis" name="Dosis" class="form-control" required />
+
+            <label class="form-label" for="EfectosSecundarios">Efectos Secundarios:</label>
+            <textarea id="EfectosSecundarios" name="EfectosSecundarios" class="form-control" required></textarea>
+
+            <button type="submit" class="register-btn">Registrar</button>
+        </form>
+
+        <div class="login-link">
+            <a href="@Url.Action("PaginaPrincipal", "Administrador")">Volver a la Página Principal</a>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,132 @@
+﻿@model CitasMedicas.Models.Usuario
+
+@{
+    ViewData["Title"] = "Registro";
+    ViewData["BodyClass"] = "login-page";
+}
+
+<h2 class="register-title">Registro de Usuario</h2>
+
+<form asp-action="Register" method="post" class="register-form">
+    <div class="form-group">
+        <label asp-for="Nombre" class="form-label"></label>
+        <input asp-for="Nombre" class="form-control" />
+        <span asp-validation-for="Nombre" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Apellido" class="form-label"></label>
+        <input asp-for="Apellido" class="form-control" />
+        <span asp-validation-for="Apellido" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="FechaNacimiento" class="form-label"></label>
+        <input asp-for="FechaNacimiento" class="form-control" type="date" required max="@DateTime.Now.ToString("yyyy-MM-dd")" />
+        <span asp-validation-for="FechaNacimiento" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Genero" class="form-label"></label>
+        <select asp-for="Genero" class="form-control">
+            <option value="Masculino">Masculino</option>
+            <option value="Femenino">Femenino</option>
+            <option value="Otro">Otro</option>
+        </select>
+        <span asp-validation-for="Genero" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Telefono" class="form-label"></label>
+        <input asp-for="Telefono" class="form-control" />
+        <span asp-validation-for="Telefono" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Direccion" class="form-label"></label>
+        <input asp-for="Direccion" class="form-control" />
+        <span asp-validation-for="Direccion" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Email" class="form-label"></label>
+        <input asp-for="Email" class="form-control" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label for="password" class="form-label">Contraseña</label>
+        <input type="password" name="password" class="form-control" />
+        <span asp-validation-for="ContraseñaHash" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary register-btn">Registrarse</button>
+    </div>
+</form>
+
+<div class="login-link">
+    <p>¿Ya tienes una cuenta? <a asp-controller="Usuarios" asp-action="Login">Inicia sesión aquí</a>.</p>
+</div>
+
+<style>
+    body {
+        background-color: #f0f8ff;
+        font-family: Arial, sans-serif;
+    }
+
+    .register-title {
+        text-align: center;
+        color: #00796b;
+        font-size: 2rem;
+        margin-top: 20px;
+    }
+
+    .register-form {
+        max-width: 400px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #ffffff;
+        border: 1px solid #d0e2ff;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-label {
+        color: #004d40;
+        font-weight: bold;
+    }
+
+    .form-control {
+        border: 1px solid #b0bec5;
+        border-radius: 5px;
+        padding: 10px;
+        margin-bottom: 10px;
+    }
+
+        .form-control:focus {
+            border-color: #00796b;
+            box-shadow: 0 0 8px rgba(0, 121, 107, 0.2);
+        }
+
+    .register-btn {
+        background-color: #00796b;
+        border-color: #004d40;
+        color: #ffffff;
+        width: 100%;
+        padding: 10px;
+        font-size: 1rem;
+        border-radius: 5px;
+    }
+
+        .register-btn:hover {
+            background-color: #004d40;
+            border-color: #00251a;
+        }
+
+    .login-link {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+        .login-link a {
+            color: #00796b;
+            text-decoration: none;
+        }
+
+            .login-link a:hover {
+                text-decoration: underline;
+            }
+</style>

@@ -1,0 +1,136 @@
+﻿@model CitasMedicas.Models.HistorialMedico
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <title>Crear Nuevo Historial Médico</title>
+    <style>
+        body {
+            background-color: #f0f8ff; /* Fondo relacionado con el área médica */
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 80%;
+            margin: 0 auto;
+        }
+
+        h2 {
+            text-align: center;
+            color: #00796b; /* Verde oscuro */
+            margin-top: 30px;
+        }
+
+        form {
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+        }
+
+        .btn {
+            display: inline-block; /* Cambiar a inline-block para estar en línea con el texto */
+            margin-right: 10px; /* Espacio entre el botón y el texto */
+            padding: 10px 15px; /* Padding del botón */
+            background-color: #00796b; /* Color de fondo */
+            color: white; /* Color de texto */
+            border: none; /* Sin borde */
+            border-radius: 5px; /* Esquinas redondeadas */
+            text-decoration: none; /* Sin subrayado */
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="date"],
+        input[type="text"],
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #d0e2ff; /* Azul claro */
+            border-radius: 5px;
+        }
+
+        button {
+            background-color: #00796b; /* Verde oscuro */
+            color: #ffffff;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+        }
+
+            button:hover {
+                background-color: #004d40; /* Verde más oscuro al pasar el ratón */
+            }
+
+        /* Estilos adicionales para el mensaje de error */
+        .text-danger {
+            color: red;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div>
+            <a href="@Url.Action("HistorialMedico", "Medico")" class="btn">Volver</a>
+        </div>
+        <h2>Crear Nuevo Historial Médico</h2>
+
+        <form asp-action="NuevoHistorial" method="post">
+            <div class="form-group">
+                <label asp-for="IdPaciente">Paciente</label>
+                <select asp-for="IdPaciente" asp-items="@(new SelectList(ViewBag.Pacientes, "IdPaciente", "NombreCompleto"))" required>
+                    <option value="">Seleccione un paciente</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Fecha">Fecha</label>
+                <input type="date" asp-for="Fecha" required max="@DateTime.Now.ToString("yyyy-MM-dd")" />
+                <span asp-validation-for="Fecha" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Descripcion">Descripción</label>
+                <input type="text" asp-for="Descripcion" required />
+                <span asp-validation-for="Descripcion" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Diagnostico">Diagnóstico</label>
+                <input type="text" asp-for="Diagnostico" required />
+                <span asp-validation-for="Diagnostico" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Tratamiento">Tratamiento</label>
+                <input type="text" asp-for="Tratamiento" required />
+                <span asp-validation-for="Tratamiento" class="text-danger"></span>
+            </div>
+
+            <button type="submit">Crear Historial Médico</button>
+        </form>
+    </div>
+
+    @section Scripts {
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js"></script>
+    }
+</body>
+</html>

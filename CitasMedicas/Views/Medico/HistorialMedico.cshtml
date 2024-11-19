@@ -1,0 +1,140 @@
+﻿@model IEnumerable<CitasMedicas.Models.HistorialMedico>
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <title>Historial Médico</title>
+    <style>
+        body {
+            background-color: #f0f8ff; /* Fondo relacionado con el área médica */
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        h2 {
+            text-align: center;
+            color: #00796b; /* Verde oscuro */
+            margin-top: 30px;
+        }
+
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            background-color: #ffffff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border: 1px solid #d0e2ff; /* Azul claro */
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: center;
+            border: 1px solid #d0e2ff; /* Bordes de las celdas en azul suave */
+        }
+
+        th {
+            background-color: #004d40; /* Verde oscuro para el encabezado */
+            color: #ffffff;
+        }
+
+        td {
+            background-color: #e0f2f1; /* Fondo verde claro para las celdas */
+        }
+
+        tbody tr:nth-child(even) td {
+            background-color: #b2dfdb; /* Fondo ligeramente más oscuro para las filas pares */
+        }
+
+        tbody tr:hover td {
+            background-color: #b2dfdb; /* Cambio de color al pasar el cursor sobre una fila */
+        }
+
+        .btn {
+            display: block;
+            width: 200px; /* Ajustado para centrar */
+            padding: 10px;
+            background-color: #00796b; /* Verde oscuro */
+            color: #ffffff;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 16px;
+            margin: 20px auto; /* Centrado automático */
+        }
+
+            .btn:hover {
+                background-color: #004d40; /* Verde más oscuro al pasar el ratón */
+            }
+
+        .left-align {
+            text-align: left; /* Clase para alineación a la izquierda */
+        }
+
+            .left-align a {
+                margin-left: 20px; /* Espaciado a la izquierda */
+            }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="left-align">
+            <!-- Alineación a la izquierda -->
+            <a href="@Url.Action("PantallaMedico", "Medico")" class="btn">Volver</a>
+        </div>
+        <h2>Historial Médico de Todos los Pacientes</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Paciente</th>
+                    <th>Fecha</th>
+                    <th>Descripción</th>
+                    <th>Diagnóstico</th>
+                    <th>Tratamiento</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var historial in Model)
+                {
+                    <tr>
+                        <td>
+                            @if (historial.IdPacienteNavigation != null)
+                            {
+                                var usuario = historial.IdPacienteNavigation.IdUsuarioNavigation;
+                                if (usuario != null)
+                                {
+                                    @($"{usuario.Nombre} {usuario.Apellido}")
+                                }
+                                else
+                                {
+                                    @("Información no disponible")
+                                    ;
+                                }
+                            }
+                            else
+                            {
+                                @("Información no disponible")
+                                ;
+                            }
+                        </td>
+                        <td>@historial.Fecha?.ToString("d")</td>
+                        <td>@historial.Descripcion</td>
+                        <td>@historial.Diagnostico</td>
+                        <td>@historial.Tratamiento</td>
+                        <td>
+                            <a asp-action="Recetas" asp-route-id="@historial.IdHistorial" class="btn btn-primary">Receta</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <div style="text-align: center;">
+            <!-- Div para centrar el botón "Crear Nuevo Historial" -->
+            <a href="@Url.Action("NuevoHistorial", "Medico")" class="btn">Crear Nuevo Historial</a>
+        </div>
+    </div>
+</body>
+</html>

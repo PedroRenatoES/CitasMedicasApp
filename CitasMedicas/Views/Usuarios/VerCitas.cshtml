@@ -1,0 +1,105 @@
+﻿@model IEnumerable<CitasMedicas.Models.Cita>
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <title>Citas Programadas</title>
+    <link rel="stylesheet" href="~/css/styles.css" />
+    <style>
+        body {
+            background-color: #f0f8ff; /* Fondo relacionado con el área médica */
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        h2 {
+            text-align: center;
+            color: #00796b; /* Verde oscuro */
+            margin-top: 30px;
+        }
+
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            background-color: #ffffff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border: 1px solid #d0e2ff; /* Azul claro */
+        }
+
+        .btn {
+            display: inline-block; /* Cambiar a inline-block para estar en línea con el texto */
+            margin-right: 10px; /* Espacio entre el botón y el texto */
+            padding: 10px 15px; /* Padding del botón */
+            background-color: #00796b; /* Color de fondo */
+            color: white; /* Color de texto */
+            border: none; /* Sin borde */
+            border-radius: 5px; /* Esquinas redondeadas */
+            text-decoration: none; /* Sin subrayado */
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: center;
+            border: 1px solid #d0e2ff; /* Bordes de las celdas en azul suave */
+        }
+
+        th {
+            background-color: #004d40; /* Verde oscuro para el encabezado */
+            color: #ffffff;
+        }
+
+        td {
+            background-color: #e0f2f1; /* Fondo verde claro para las celdas */
+        }
+
+        tbody tr:nth-child(even) td {
+            background-color: #b2dfdb; /* Fondo ligeramente más oscuro para las filas pares */
+        }
+
+        tbody tr:hover td {
+            background-color: #b2dfdb; /* Cambio de color al pasar el cursor sobre una fila */
+        }
+    </style>
+</head>
+<body>
+    <div style="text-align: left;">
+        <!-- Alineación a la izquierda -->
+        <a href="@Url.Action("Main", "Usuarios")" class="btn">Volver</a>
+    </div>
+    <h2>Citas Programadas</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Fecha y Hora</th>
+                <th>Motivo</th>
+                <th>Medico</th>
+                <th>Estado</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var cita in Model)
+            {
+                <tr>
+                    <td>@cita.FechaHora?.ToString("g")</td>
+                    <td>@cita.Motivo</td>
+                    <td>
+                        @if (cita.IdMedicoNavigation?.IdUsuarioNavigation != null)
+                        {
+                            @($"{cita.IdMedicoNavigation.IdUsuarioNavigation.Nombre} {cita.IdMedicoNavigation.IdUsuarioNavigation.Apellido}")
+                        }
+                        else
+                        {
+                            <span>No asignado</span>
+                        }
+                    </td>
+                    <td>@cita.Estado</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</body>
+</html>
