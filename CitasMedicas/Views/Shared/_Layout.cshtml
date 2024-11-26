@@ -139,6 +139,7 @@
             <!-- Sidebar -->
             <div class="col-md-3 col-lg-2 sidebar">
                 <h4>Menu</h4>
+                <a href="javascript:void(0)" id="carritoBtn">Ver Carrito</a>
                 <a href="@Url.Action("VerCitas", "Usuarios")">Ver Citas Programadas</a>
                 <a href="@Url.Action("AgendarNuevaCita", "Usuarios")">Agendar Nueva Cita</a>
                 <a href="@Url.Action("VerHistorialMedico", "Usuarios")">Ver Historial Médico</a>
@@ -157,9 +158,44 @@
     </div>
 
 
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script>
+        $(document).ready(function () {
+            // Mostrar el carrito con las citas registradas cuando se haga clic en el botón
+            $("#carritoBtn").click(function () {
+                // Verificar si el carrito ya existe
+                if ($("#carritoModal").length === 0) {
+                    // Si no existe, hacer la llamada Ajax para obtener las citas
+                    $.ajax({
+                        url: '@Url.Action("ObtenerCitasCarrito", "Usuarios")', // URL que devuelve las citas
+                        type: 'GET',
+                        success: function (data) {
+                            // Crear el carrito y agregarlo al body
+                            $('body').append('<div id="carritoModal" class="carrito-modal">' + data + '</div>');
+                            $('#carritoModal').show();
+                        },
+                        error: function () {
+                            alert('Error al cargar las citas.');
+                        }
+                    });
+                } else {
+                    // Si el carrito ya existe, simplemente mostrarlo
+                    $('#carritoModal').show();
+                }
+            });
+
+            // Ocultar el carrito cuando se haga clic fuera del modal (opcional)
+            $(document).on('click', function (event) {
+                if (!$(event.target).closest('#carritoModal, #carritoBtn').length) {
+                    $('#carritoModal').hide();
+                }
+            });
+        });
+    </script>
+
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

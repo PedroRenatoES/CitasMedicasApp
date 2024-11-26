@@ -1,0 +1,89 @@
+﻿@model List<Cita>
+
+<style>
+    body {
+        background-color: #f0f8ff; /* Fondo claro, relacionado con el área médica */
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+
+    .carrito-contenedor {
+        position: fixed;
+        top: 20px; /* Distancia desde la parte superior */
+        right: 20px; /* Distancia desde la parte derecha */
+        background-color: #ffffff; /* Fondo blanco para el carrito */
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        max-width: 600px;
+        border: 1px solid #d0e2ff; /* Azul suave para el borde */
+        z-index: 9999; /* Asegura que esté encima de otros elementos */ /* Inicialmente oculto */
+    }
+
+        .carrito-contenedor h4 {
+            color: #00796b; /* Verde oscuro */
+            text-align: center;
+        }
+
+        .carrito-contenedor ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .carrito-contenedor li {
+            margin: 15px 0;
+            padding: 10px;
+            background-color: #e0f2f1; /* Fondo verde claro */
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+            .carrito-contenedor li strong {
+                color: #004d40; /* Verde oscuro */
+            }
+
+        .carrito-contenedor p {
+            text-align: center;
+            font-size: 1.2em;
+            color: #00796b;
+        }
+
+    .btn {
+        display: inline-block;
+        margin-right: 10px;
+        padding: 10px 15px;
+        background-color: #00796b; /* Color de fondo */
+        color: white;
+        border: none;
+        border-radius: 5px;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+        .btn:hover {
+            background-color: #004d40; /* Cambiar a verde oscuro al pasar el ratón */
+        }
+</style>
+
+<div class="carrito-contenedor">
+    <h4>Carrito de Citas</h4>
+    @if (Model != null && Model.Any())
+    {
+        <ul>
+            @foreach (var cita in Model)
+            {
+                <li>
+                    <strong>Cita con:</strong> @cita.IdMedicoNavigation.IdUsuarioNavigation.Nombre @cita.IdMedicoNavigation.IdUsuarioNavigation.Apellido
+                    <br />
+                    <strong>Fecha y Hora:</strong> @cita.FechaHora.ToString()
+                </li>
+            }
+        </ul>
+        <a href="@Url.Action("ConfirmarCitas", "Usuarios")" class="btn">Confirmar Citas</a>
+    }
+    else
+    {
+        <p>No tienes citas en tu carrito.</p>
+    }
+</div>
