@@ -74,6 +74,8 @@
         <div>
             <a href="@Url.Action("PantallaMedico", "Medico")" class="btn">Volver</a>
         </div>
+        <a href="@Url.Action("ExportarPruebasDiagnosticas", "Medico")" class="btn">Exportar a Excel</a>
+
         <h1>Pruebas Diagnósticas</h1>
 
         @if (!Model.Any())
